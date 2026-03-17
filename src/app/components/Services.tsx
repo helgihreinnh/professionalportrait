@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 
 const services = [
@@ -54,10 +54,10 @@ export function Services() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="services" className="relative h-screen flex flex-col justify-center py-16 px-6 md:px-14 overflow-hidden snap-start snap-always">
+    <section id="services" className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 px-6 md:px-14 overflow-hidden snap-start snap-always">
 
       {/* Section header */}
-      <div className="mb-20 max-w-[1400px] mx-auto w-full">
+      <div className="mb-16 max-w-[1400px] mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,116 +79,120 @@ export function Services() {
         </motion.div>
       </div>
 
-      {/* Service rows */}
-      <div className="divide-y divide-[#0B1B4A]/[0.07]">
-        {services.map((service, i) => (
-          <motion.div
-            key={service.number}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.55, delay: i * 0.07 }}
-          >
+      {/* 5 Column Grid */}
+      <div className="max-w-[1400px] mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-5">
+          {services.map((service, i) => (
             <motion.div
+              key={service.number}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.65, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               onHoverStart={() => setActive(i)}
               onHoverEnd={() => setActive(null)}
-              className="relative cursor-default overflow-hidden"
+              className="relative group cursor-default"
             >
-              {/* Hover background wash */}
+              {/* Card container */}
               <motion.div
-                className="absolute inset-0 pointer-events-none"
-                animate={{ opacity: active === i ? 1 : 0, backgroundColor: service.accent }}
-                transition={{ duration: 0.3 }}
-                style={{ opacity: 0 }}
-              />
-
-              {/* Main row */}
-              <div className="relative z-10 flex items-center gap-6 py-7 md:py-9">
-
-                {/* Number + discipline stacked */}
-                <div className="flex-shrink-0 w-16 md:w-24">
-                  <div
-                    className="font-['Space_Grotesk',sans-serif] text-[#0B1B4A] leading-none mb-1"
+                className="relative h-full rounded-2xl overflow-hidden"
+                animate={{ 
+                  backgroundColor: active === i ? service.accent : "rgba(11,27,74,0.03)",
+                }}
+                transition={{ duration: 0.4 }}
+                style={{ 
+                  border: "1px solid rgba(11,27,74,0.08)",
+                }}
+              >
+                {/* Inner padding */}
+                <div className="p-6 flex flex-col h-full min-h-[420px]">
+                  
+                  {/* Number */}
+                  <motion.div
+                    className="font-['Space_Grotesk',sans-serif] text-[#0B1B4A] leading-none mb-4"
                     style={{
                       fontWeight: 700,
-                      fontSize: "clamp(28px, 4vw, 52px)",
-                      opacity: active === i ? 0.25 : 0.08,
-                      transition: "opacity 0.3s",
+                      fontSize: "clamp(40px, 5vw, 56px)",
+                      opacity: 0.08,
                     }}
+                    animate={{
+                      opacity: active === i ? 0.2 : 0.08,
+                    }}
+                    transition={{ duration: 0.3 }}
                   >
                     {service.number}
-                  </div>
-                  <div
-                    className="font-['Space_Mono',sans-serif] text-[11px] tracking-[0.25em] text-[#0B1B4A]/60 uppercase hidden md:block"
-                  >
-                    {service.discipline}
-                  </div>
-                </div>
+                  </motion.div>
 
-                {/* Title — dominant */}
-                <div className="flex-1 min-w-0">
+                  {/* Discipline label */}
+                  <div className="mb-4">
+                    <span className="font-['Space_Mono',sans-serif] text-[10px] tracking-[0.3em] text-[#0B1B4A]/60 uppercase">
+                      {service.discipline}
+                    </span>
+                  </div>
+
+                  {/* Title */}
                   <motion.h3
-                    className="font-['Space_Grotesk',sans-serif] text-[#0B1B4A] tracking-tight leading-tight"
-                    style={{ fontWeight: 700, fontSize: "clamp(22px, 3.2vw, 48px)" }}
-                    animate={{ x: active === i ? 10 : 0 }}
+                    className="font-['Space_Grotesk',sans-serif] text-[#0B1B4A] tracking-tight leading-tight mb-4 flex-1"
+                    style={{ fontWeight: 700, fontSize: "clamp(18px, 2vw, 22px)" }}
+                    animate={{ 
+                      y: active === i ? -4 : 0,
+                    }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   >
                     {service.title}
                   </motion.h3>
-                </div>
 
-                {/* Tags */}
-                <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-                  {service.tags.map((tag) => (
-                    <motion.span
-                      key={tag}
-                      animate={{ opacity: active === i ? 1 : 0.3 }}
-                      transition={{ duration: 0.3 }}
-                      className="font-['Space_Mono',sans-serif] text-[11px] tracking-widest uppercase rounded-full px-3 py-1.5"
-                      style={{ background: "rgba(11,27,74,0.07)", color: "#0B1B4A" }}
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </div>
-
-                {/* Arrow */}
-                <motion.div
-                  animate={{
-                    rotate: active === i ? 0 : 45,
-                    color: active === i ? "#3350FF" : "rgba(11,27,74,0.18)",
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="flex-shrink-0"
-                >
-                  <ArrowUpRight size={22} />
-                </motion.div>
-              </div>
-
-              {/* Expanding description */}
-              <AnimatePresence>
-                {active === i && (
+                  {/* Description */}
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{
+                      opacity: active === i ? 1 : 0,
+                      height: active === i ? "auto" : 0,
+                    }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden relative z-10"
+                    className="overflow-hidden"
                   >
-                    <div className="pb-8 pl-[calc(4rem+1.5rem)] md:pl-[calc(6rem+1.5rem)] pr-16">
-                      <p
-                        className="text-[#0B1B4A]/65 leading-relaxed max-w-2xl"
-                        style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 400, fontSize: "1.0625rem" }}
-                      >
-                        {service.description}
-                      </p>
-                    </div>
+                    <p
+                      className="text-[#0B1B4A]/65 leading-relaxed text-sm mb-4"
+                      style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 400 }}
+                    >
+                      {service.description}
+                    </p>
                   </motion.div>
-                )}
-              </AnimatePresence>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {service.tags.map((tag) => (
+                      <motion.span
+                        key={tag}
+                        animate={{ opacity: active === i ? 1 : 0.4 }}
+                        transition={{ duration: 0.3 }}
+                        className="font-['Space_Mono',sans-serif] text-[9px] tracking-wider uppercase rounded-full px-2.5 py-1"
+                        style={{ background: "rgba(11,27,74,0.08)", color: "#0B1B4A" }}
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+
+                  {/* Arrow icon */}
+                  <div className="flex justify-end">
+                    <motion.div
+                      animate={{
+                        rotate: active === i ? 0 : 45,
+                        color: active === i ? "#3350FF" : "rgba(11,27,74,0.15)",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ArrowUpRight size={20} />
+                    </motion.div>
+                  </div>
+
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Bottom note */}
@@ -196,8 +200,8 @@ export function Services() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-12 flex items-center gap-4"
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="mt-16 flex items-center gap-4 max-w-[1400px] mx-auto w-full"
       >
         <div className="flex-1 h-px bg-gradient-to-r from-[#B8C9EE]/50 to-transparent" />
         <span className="font-['Space_Mono',sans-serif] text-[11px] tracking-[0.3em] text-[#0B1B4A]/60 uppercase">
