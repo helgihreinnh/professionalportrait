@@ -8,7 +8,6 @@
     "dev": "vite"
   },
   "dependencies": {
-    "framer-motion": "^12.0.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "7.3.5",
@@ -82,9 +81,13 @@
       "optional": true
     }
   },
+  "overrides": {
+    "framer-motion": "npm:motion@12.23.24"
+  },
   "pnpm": {
     "overrides": {
-      "vite": "6.3.5"
+      "vite": "6.3.5",
+      "framer-motion": "npm:motion@12.23.24"
     }
   }
 }
