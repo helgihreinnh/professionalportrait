@@ -45,6 +45,7 @@
     "date-fns": "3.6.0",
     "embla-carousel-react": "8.6.0",
     "input-otp": "1.4.2",
+    "framer-motion": "^12.38.0",
     "lucide-react": "0.487.0",
     "motion": "12.23.24",
     "next-themes": "0.4.6",
@@ -81,13 +82,9 @@
       "optional": true
     }
   },
-  "overrides": {
-    "framer-motion": "npm:motion@12.23.24"
-  },
   "pnpm": {
     "overrides": {
-      "vite": "6.3.5",
-      "framer-motion": "npm:motion@12.23.24"
+      "vite": "6.3.5"
     }
   }
 }
