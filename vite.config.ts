@@ -14,6 +14,9 @@ export default defineConfig({
     alias: {
       // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
+      // framer-motion was renamed to motion (v11+). Some transitive deps still
+      // import the old name — redirect them to the installed motion package.
+      'framer-motion': 'motion',
     },
   },
 
