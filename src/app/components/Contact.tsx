@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { PageContainer } from "./layouts/PageContainer";
 
 const engagementTypes = [
   {
@@ -32,88 +33,93 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative h-screen flex flex-col justify-center py-16 px-6 md:px-12 overflow-hidden snap-start snap-always"
+      className="relative h-screen flex flex-col justify-center py-16 overflow-hidden snap-start snap-always"
     >
-      <div className="relative z-10 max-w-[1400px] mx-auto w-full">
-        {/* Header label */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-4"
-        >
-          <div
-            className="px-3 py-1 rounded-full font-['Space_Mono'] text-[10px] tracking-widest uppercase"
-            style={{ background: "rgba(11,27,74,0.06)", color: "rgba(11,27,74,0.4)" }}
+      <PageContainer>
+        {/* Section header — same pattern as all other sections */}
+        <div className="mb-10">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            06 — Contact
-          </div>
-        </motion.div>
+            <span className="block font-['Space_Mono',sans-serif] text-[11px] tracking-[0.45em] text-[#0B1B4A]/40 uppercase mb-4">
+              06 — Contact
+            </span>
+            <h2
+              className="font-['Space_Grotesk'] text-[#0B1B4A] leading-[0.92] tracking-tight"
+              style={{ fontWeight: 800, fontSize: "clamp(48px, 7vw, 96px)", lineHeight: 0.95 }}
+            >
+              Let's Talk
+            </h2>
+          </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-          {/* Left */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+          {/* Left — contact details */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2
-              className="font-['Space_Grotesk'] text-[#0B1B4A] leading-[0.92] tracking-tight mb-6"
-              style={{ fontWeight: 800, fontSize: "clamp(36px, 5.5vw, 80px)" }}
-            >
-              Let's Build
-              <br />
-              <span style={{ fontWeight: 300, color: "rgba(11,27,74,0.3)", fontStyle: "italic" }}>
-                Something Better
-              </span>
-            </h2>
             <p
-              className="leading-relaxed mb-10 max-w-md text-[#0B1B4A]/45"
-              style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 300, fontSize: "1.05rem" }}
+              className="leading-relaxed mb-8 max-w-md text-[#0B1B4A]"
+              style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 300, fontSize: "1.1rem" }}
             >
-              Ready to transform your environment through evidence-based behavioral design?
-              Whether you're building a PropTech tool, optimizing a workspace, or seeking an
-              innovation partner — let's talk.
+              I'm available for advisory work, project collaborations, and strategic
+              partnerships within workplace design, digital product development, and
+              user experience.
             </p>
 
-            {/* Contact details */}
-            <div className="space-y-4 mb-10">
-              {[
-                { Icon: Mail, label: "helgihreinn@me.com", href: "mailto:helgihreinn@me.com" },
-                { Icon: Phone, label: "+45 4083 1842", href: "tel:+4540831842" },
-                { Icon: MapPin, label: "Copenhagen, Denmark", href: null },
-              ].map(({ Icon, label, href }) => (
-                <div key={label} className="flex items-center gap-4">
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(11,27,74,0.06)" }}
-                  >
-                    <Icon size={14} style={{ color: "rgba(11,27,74,0.4)" }} />
-                  </div>
-                  {href ? (
-                    <a
-                      href={href}
-                      className="font-['Space_Grotesk'] text-sm hover:text-[#0B1B4A] transition-colors duration-200"
-                      style={{ color: "rgba(11,27,74,0.55)" }}
+            {/* Contact details — name and info listed clearly */}
+            <div className="mb-8">
+              <div
+                className="font-['Space_Grotesk'] text-[#0B1B4A] mb-1"
+                style={{ fontWeight: 700, fontSize: "1rem" }}
+              >
+                Helgi Hreinn Hjalmarsson
+              </div>
+              <div className="font-['Space_Mono'] text-[10px] tracking-[0.3em] text-[#0B1B4A]/50 uppercase mb-6">
+                Architect · Copenhagen
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { Icon: Mail,    label: "helgihreinn@me.com",    href: "mailto:helgihreinn@me.com" },
+                  { Icon: Phone,   label: "+45 4083 1842",         href: "tel:+4540831842" },
+                  { Icon: MapPin,  label: "Copenhagen, Denmark",   href: null },
+                ].map(({ Icon, label, href }) => (
+                  <div key={label} className="flex items-center gap-4">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: "rgba(11,27,74,0.06)" }}
                     >
-                      {label}
-                    </a>
-                  ) : (
-                    <span className="font-['Space_Grotesk'] text-sm" style={{ color: "rgba(11,27,74,0.4)" }}>
-                      {label}
-                    </span>
-                  )}
-                </div>
-              ))}
+                      <Icon size={14} style={{ color: "rgba(11,27,74,0.4)" }} />
+                    </div>
+                    {href ? (
+                      <a
+                        href={href}
+                        className="font-['Space_Grotesk'] text-[0.95rem] hover:text-[#0B1B4A] transition-colors duration-200 text-[#0B1B4A]/70"
+                      >
+                        {label}
+                      </a>
+                    ) : (
+                      <span className="font-['Space_Grotesk'] text-[0.95rem] text-[#0B1B4A]/50">
+                        {label}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Social */}
-            <div className="flex flex-wrap gap-3">
+            {/* Social links — pushed down */}
+            <div className="flex flex-wrap gap-3 mt-6">
               {[
-                { Icon: Github, label: "GitHub", href: "https://github.com/HelgiHreinnH/geist-ux-architect" },
-                { Icon: Linkedin, label: "LinkedIn", href: "#" },
+                { Icon: Github,      label: "GitHub",    href: "https://github.com/HelgiHreinnH/geist-ux-architect" },
+                { Icon: Linkedin,    label: "LinkedIn",  href: "#" },
                 { Icon: ArrowUpRight, label: "Live Site", href: "https://userpage.lovable.app" },
               ].map(({ Icon, label, href }) => (
                 <motion.a
@@ -126,7 +132,7 @@ export function Contact() {
                   className="flex items-center gap-2 font-['Space_Mono'] text-[9px] tracking-widest uppercase rounded-xl px-4 py-2.5 transition-all duration-200"
                   style={{
                     background: "rgba(11,27,74,0.06)",
-                    color: "rgba(11,27,74,0.45)",
+                    color: "rgba(11,27,74,0.55)",
                     border: "1px solid rgba(11,27,74,0.08)",
                   }}
                 >
@@ -137,16 +143,14 @@ export function Contact() {
             </div>
           </motion.div>
 
-          {/* Right: Engagement types */}
+          {/* Right — engagement types */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div
-              className="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase mb-6 text-[#0B1B4A]/30"
-            >
+            <div className="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase mb-5 text-[#0B1B4A]/30">
               Engagement Types
             </div>
             <div className="space-y-3">
@@ -184,7 +188,7 @@ export function Contact() {
                     </span>
                   </div>
                   <p
-                    className="text-xs leading-relaxed pl-5 text-[#0B1B4A]/45"
+                    className="text-xs leading-relaxed pl-5 text-[#0B1B4A]/50"
                     style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 400 }}
                   >
                     {eng.description}
@@ -197,7 +201,7 @@ export function Contact() {
 
         {/* Footer */}
         <div
-          className="border-t pt-8 flex items-center justify-between flex-wrap gap-4"
+          className="border-t pt-7 mt-10 flex items-center justify-between flex-wrap gap-4"
           style={{ borderColor: "rgba(11,27,74,0.07)" }}
         >
           <div className="flex items-center gap-3">
@@ -218,7 +222,7 @@ export function Contact() {
             © 2025 USER. All rights reserved. — Copenhagen, Denmark
           </div>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }
