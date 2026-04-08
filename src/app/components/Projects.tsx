@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
+import { PageContainer } from "./layouts/PageContainer";
 
 const IMG_LEGO =
   "https://images.unsplash.com/photo-1771908997889-6d043c4a9ef7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGFnZW5jeSUyMHN0dWRpbyUyMHdvcmtzcGFjZSUyMGRyYW1hdGljJTIwbGlnaHRpbmd8ZW58MXx8fHwxNzczMTQ0MDQ1fDA&ixlib=rb-4.1.0&q=80&w=1080";
@@ -23,7 +24,9 @@ interface BentoCardProps {
   projectId: string;
 }
 
-function BentoCard({ number, client, title, outcome, tags, image, accentColor, delay = 0, projectId }: BentoCardProps) {
+function BentoCard({
+  number, client, title, outcome, tags, image, accentColor, delay = 0, projectId,
+}: BentoCardProps) {
   return (
     <Link to={`/projects/${projectId}`}>
       <motion.div
@@ -46,6 +49,7 @@ function BentoCard({ number, client, title, outcome, tags, image, accentColor, d
             variants={{ hovered: { scale: 1.06 } }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           />
+          {/* Gradient — keep, accentuates depth */}
           <div
             className="absolute inset-0"
             style={{
@@ -68,9 +72,9 @@ function BentoCard({ number, client, title, outcome, tags, image, accentColor, d
           </span>
         </div>
 
-        {/* Bottom content */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
-          <div className="font-['Space_Mono',sans-serif] text-[11px] tracking-[0.35em] text-white/50 uppercase mb-0.5">
+        {/* Bottom content — nudged upward slightly from edge */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+          <div className="font-['Space_Mono',sans-serif] text-[11px] tracking-[0.35em] text-white/50 uppercase mb-1">
             {client}
           </div>
           <div className="flex items-end justify-between gap-2">
@@ -90,7 +94,7 @@ function BentoCard({ number, client, title, outcome, tags, image, accentColor, d
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 mt-2.5">
+          <div className="flex flex-wrap gap-1.5 mt-2">
             {tags.map((tag) => (
               <span
                 key={tag}
@@ -109,140 +113,141 @@ function BentoCard({ number, client, title, outcome, tags, image, accentColor, d
 
 export function Projects() {
   return (
-    <section id="projects" className="relative h-screen flex flex-col justify-center px-6 md:px-14 py-16 overflow-hidden snap-start snap-always">
-      
-      {/* Simplified header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-16"
-      >
-        <h2
-          className="font-['Space_Grotesk',sans-serif] tracking-tight text-[#0B1B4A]"
-          style={{ fontWeight: 700, fontSize: "clamp(48px, 7vw, 96px)", lineHeight: 0.95 }}
+    <section
+      id="projects"
+      className="relative h-screen flex flex-col justify-center py-16 overflow-hidden snap-start snap-always"
+    >
+      <PageContainer className="flex flex-col h-full justify-center">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
         >
-          Selected Work
-        </h2>
-      </motion.div>
+          <span className="block font-['Space_Mono',sans-serif] text-[11px] tracking-[0.45em] text-[#0B1B4A]/40 uppercase mb-4">
+            04 — Selected Work
+          </span>
+          <h2
+            className="font-['Space_Grotesk',sans-serif] tracking-tight text-[#0B1B4A]"
+            style={{ fontWeight: 700, fontSize: "clamp(48px, 7vw, 96px)", lineHeight: 0.95 }}
+          >
+            Examples
+          </h2>
+          <p
+            className="mt-3 text-[#0B1B4A] max-w-xl"
+            style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 400, fontSize: "1.05rem" }}
+          >
+            12 projects across workplace strategy, digital product, and making.
+          </p>
+        </motion.div>
 
-      {/* ── Desktop bento grid ─────────────────────────────────────────── */}
-      <div
-        className="hidden md:grid gap-3"
-        style={{
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gridTemplateRows: "1fr 1fr",
-          height: "calc(100vh - 280px)",
-          minHeight: 400,
-          maxHeight: 650,
-        }}
-      >
-        <div style={{ gridColumn: "1 / 2", gridRow: "1 / 3" }}>
-          <BentoCard
-            projectId="lego"
-            number="01"
-            client="LEGO"
-            title="Behavioral Workspace Transformation"
-            outcome="+48% Collab"
-            tags={["Behavioral Analytics", "UX Research"]}
-            image={IMG_LEGO}
-            accentColor="#D5DEF4"
-            delay={0}
-          />
+        {/* Desktop bento grid */}
+        <div
+          className="hidden md:grid gap-3 flex-1"
+          style={{
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
+            height: "calc(100vh - 320px)",
+            minHeight: 360,
+            maxHeight: 580,
+          }}
+        >
+          <div style={{ gridColumn: "1 / 2", gridRow: "1 / 3" }}>
+            <BentoCard
+              projectId="lego"
+              number="01"
+              client="LEGO"
+              title="Behavioral Workspace Transformation"
+              outcome="+48% Collab"
+              tags={["Behavioral Analytics", "UX Research"]}
+              image={IMG_LEGO}
+              accentColor="#D5DEF4"
+              delay={0}
+            />
+          </div>
+          <div style={{ gridColumn: "2 / 3", gridRow: "1 / 2" }}>
+            <BentoCard
+              projectId="novo-nordisk"
+              number="02"
+              client="Novo Nordisk"
+              title="Lab Environment Design"
+              outcome="Validated"
+              tags={["Spatial Design", "Post-Occupancy"]}
+              image={IMG_NOVO}
+              accentColor="#B8C9EE"
+              delay={0.08}
+            />
+          </div>
+          <div style={{ gridColumn: "3 / 4", gridRow: "1 / 2" }}>
+            <BentoCard
+              projectId="maersk"
+              number="03"
+              client="MAERSK"
+              title="Behavioral Pattern Analysis"
+              outcome="+31% Eff"
+              tags={["Sensor Data", "Analytics"]}
+              image={IMG_MAERSK}
+              accentColor="#DCE8E6"
+              delay={0.16}
+            />
+          </div>
+          <div style={{ gridColumn: "2 / 4", gridRow: "2 / 3" }}>
+            <BentoCard
+              projectId="aec-innovation"
+              number="04"
+              client="AEC Innovation Lab"
+              title="Design Technology Platform"
+              outcome="Pilot"
+              tags={["PropTech", "AI Tools", "Parametric"]}
+              image={IMG_AEC}
+              accentColor="#C5D5EC"
+              delay={0.24}
+            />
+          </div>
         </div>
-        <div style={{ gridColumn: "2 / 3", gridRow: "1 / 2" }}>
-          <BentoCard
-            projectId="novo-nordisk"
-            number="02"
-            client="Novo Nordisk"
-            title="Lab Environment Design"
-            outcome="Validated"
-            tags={["Spatial Design", "Post-Occupancy"]}
-            image={IMG_NOVO}
-            accentColor="#B8C9EE"
-            delay={0.08}
-          />
-        </div>
-        <div style={{ gridColumn: "3 / 4", gridRow: "1 / 2" }}>
-          <BentoCard
-            projectId="maersk"
-            number="03"
-            client="MAERSK"
-            title="Behavioral Pattern Analysis"
-            outcome="+31% Eff"
-            tags={["Sensor Data", "Analytics"]}
-            image={IMG_MAERSK}
-            accentColor="#DCE8E6"
-            delay={0.16}
-          />
-        </div>
-        <div style={{ gridColumn: "2 / 4", gridRow: "2 / 3" }}>
-          <BentoCard
-            projectId="aec-innovation"
-            number="04"
-            client="AEC Innovation Lab"
-            title="Design Technology Platform"
-            outcome="Pilot"
-            tags={["PropTech", "AI Tools", "Parametric"]}
-            image={IMG_AEC}
-            accentColor="#C5D5EC"
-            delay={0.24}
-          />
-        </div>
-      </div>
 
-      {/* ── Mobile stack ─────────────────────────────────────────────── */}
-      <div className="md:hidden space-y-3">
-        <div style={{ height: 360 }}>
-          <BentoCard
-            projectId="lego"
-            number="01"
-            client="LEGO"
-            title="Behavioral Workspace Transformation"
-            outcome="+48% Collab"
-            tags={["Behavioral Analytics", "UX Research"]}
-            image={IMG_LEGO}
-            accentColor="#D5DEF4"
-          />
+        {/* Mobile stack */}
+        <div className="md:hidden space-y-3">
+          <div style={{ height: 340 }}>
+            <BentoCard
+              projectId="lego"
+              number="01"
+              client="LEGO"
+              title="Behavioral Workspace Transformation"
+              outcome="+48% Collab"
+              tags={["Behavioral Analytics", "UX Research"]}
+              image={IMG_LEGO}
+              accentColor="#D5DEF4"
+            />
+          </div>
+          <div style={{ height: 260 }}>
+            <BentoCard
+              projectId="novo-nordisk"
+              number="02"
+              client="Novo Nordisk"
+              title="Lab Environment Design"
+              outcome="Validated"
+              tags={["Spatial Design", "Post-Occupancy"]}
+              image={IMG_NOVO}
+              accentColor="#B8C9EE"
+            />
+          </div>
+          <div style={{ height: 260 }}>
+            <BentoCard
+              projectId="maersk"
+              number="03"
+              client="MAERSK"
+              title="Behavioral Pattern Analysis"
+              outcome="+31% Eff"
+              tags={["Sensor Data", "Analytics"]}
+              image={IMG_MAERSK}
+              accentColor="#DCE8E6"
+            />
+          </div>
         </div>
-        <div style={{ height: 280 }}>
-          <BentoCard
-            projectId="novo-nordisk"
-            number="02"
-            client="Novo Nordisk"
-            title="Lab Environment Design"
-            outcome="Validated"
-            tags={["Spatial Design", "Post-Occupancy"]}
-            image={IMG_NOVO}
-            accentColor="#B8C9EE"
-          />
-        </div>
-        <div style={{ height: 280 }}>
-          <BentoCard
-            projectId="maersk"
-            number="03"
-            client="MAERSK"
-            title="Behavioral Pattern Analysis"
-            outcome="+31% Eff"
-            tags={["Sensor Data", "Analytics"]}
-            image={IMG_MAERSK}
-            accentColor="#DCE8E6"
-          />
-        </div>
-        <div style={{ height: 320 }}>
-          <BentoCard
-            projectId="aec-innovation"
-            number="04"
-            client="AEC Innovation Lab"
-            title="Design Technology Platform"
-            outcome="Pilot"
-            tags={["PropTech", "AI Tools", "Parametric"]}
-            image={IMG_AEC}
-            accentColor="#C5D5EC"
-          />
-        </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }
